@@ -9,7 +9,7 @@
     "compile": "rollup -c",
     "compile:watch": "rollup -w -c",
     "storybook": "start-storybook -p 9001 -c ./frontend/storybook",
-    "deploy-storybook": "storybook-to-ghpages"
+    "deploy-storybook": "build-storybook -c ./frontend/storybook -o docs"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
