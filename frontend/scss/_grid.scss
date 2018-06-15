@@ -1,0 +1,51 @@
+@mixin basic-styles {
+  display: flex;
+  align-items: center; // Vertically center all content
+}
+  
+@mixin grid-child ($col-start, $col-end, $row-start, $row-end) {
+  -ms-grid-column: $col-start;
+  -ms-grid-column-span: $col-end - $col-start;
+  -ms-grid-row: $row-start;
+  -ms-grid-row-span: $row-end - $row-start;
+  grid-column: #{$col-start}/#{$col-end};
+  grid-row: #{$row-start}/#{$row-end};
+}
+
+.grid-parent {
+  display: -ms-grid;
+  @supports (display: grid) {
+    display: grid;
+  }
+}
+
+.grid-child {
+  @include basic-styles;
+
+  @supports (display: grid) {
+    grid-gap: 20px;
+  }
+}
+
+.container {
+  -ms-grid-columns: 1fr 2fr 1fr;
+  grid-template-columns: 1fr 2fr 1fr;
+}
+
+
+// Responsive Mixins
+@mixin for-phone-only {
+  @media (max-width: 599px) { @content; }
+}
+@mixin for-tablet-portrait-up {
+  @media (min-width: 600px) { @content; }
+}
+@mixin for-tablet-landscape-up {
+  @media (min-width: 900px) { @content; }
+}
+@mixin for-desktop-up {
+  @media (min-width: 1200px) { @content; }
+}
+@mixin for-big-desktop-up {
+  @media (min-width: 1800px) { @content; }
+}

@@ -1,0 +1,27 @@
+{
+    "presets": [
+        "es2017",
+        "stage-0",
+        "react",
+        [
+            "env",
+            {
+              "modules": false
+            }
+        ]
+    ],
+    "plugins": [
+      "external-helpers",
+      "transform-export-extensions",
+      ["module-resolver", {
+        "cwd": "babelrc",
+        "alias": {
+          "@root": "./",
+          "@node": "./node_modules",
+          "@components": "./frontend/components",
+          "@styles": "./frontend/scss",
+          "@images": "./NathHorrigan/static/images",
+        }
+      }]
+    ]
+  }
