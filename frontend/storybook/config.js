@@ -3,7 +3,7 @@ import { configure } from '@storybook/vue';
 import Vue from 'vue';
 
 // Import your custom components.
-import Landing from '@components/landing.vue'
+import Landing from '@components/hero.vue'
 import { config, dom, library } from '@fortawesome/fontawesome-svg-core'
 import { faCoffee, faEnvelope, faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import { faFacebook, faMedium, faTwitter, faGithub } from '@fortawesome/free-brands-svg-icons'

@@ -239,26 +239,20 @@
             left: random(90) + vw; // Random X
 
             animation: particle 25s infinite;
-            animation-delay: (4 * $i) + s;
+            animation-delay: (3 * $i) + s;
         }
     }
 
 
     @keyframes particle {
         0% {
-            opacity: 1;
             transform: translate3d(0, 0, 0) rotate(0deg);
         }
 
-        75% {
-            opacity: 1;
-        }
-
         100% {
-            opacity: 0;
             transform: translate3d(
                 (random(200) - 100) + px,
-                calc(-100vh - 80px),
+                calc(-100vh - 120px),
                 0px
             )
             rotate(random(3) * 360deg);;

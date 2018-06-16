@@ -2,10 +2,10 @@ import Vue from 'vue';
 
 import { storiesOf } from '@storybook/vue';
 
-import Landing from '@components/landing.vue';
+import Hero from '@components/hero.vue';
 
 storiesOf('FrontPage', module)
-  .add('LandingSection', () => ({
-    components: { Landing },
-    template: '<landing-section />'
+  .add('Hero', () => ({
+    components: { Hero },
+    template: '<hero />'
   }))
