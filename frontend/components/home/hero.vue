@@ -1,53 +1,56 @@
 <template>
     <div>
-        <div class="hero__sidenav" v-bind:class="{ 'hero__sidenav--active' : showNav }">
-            <ul class="hero__sidenav__list">
-                <li v-for="(link, index) in links" class="hero__nav__link" v-bind:key="index">
-                    <a :href="link.href"> {{ link.label }} </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="hero" v-bind:class="{ 'hero--pushed' : showNav }" v-bind:style="{ height: viewport }">
-
-
-            <div class="hero__nav">
-                <ul class="hero__nav__list">
+        <div>
+            <nav class="hero__sidenav" v-bind:class="{ 'hero__sidenav--active' : showNav }">
+                <ul class="hero__sidenav__list">
                     <li v-for="(link, index) in links" class="hero__nav__link" v-bind:key="index">
                         <a :href="link.href"> {{ link.label }} </a>
                     </li>
                 </ul>
-                <span class="hero__nav__trigger" v-on:click="toggleNav">Menu</span>
-            </div>
+            </nav>
 
-            <div class="particle-container">
-                <img v-for="(logo, index) in logos" :src="logo" :class="['particle-' + index]"/>
+            <div class="hero" v-bind:class="{ 'hero--pushed' : showNav }" v-bind:style="{ height: viewport }">
 
-                <div class="particle-container__cover">
-                    <h3 class="hero__tagline">
-                        Nathan Horrigan is… <br/>
-                        <span class="hero__tagline--large">A Frontend Developer</span> <br/>
-                        in Somerset, England
-                    </h3>
-                    <ul class="hero__socials">
-                        <li v-for="social in socials" class="hero__socials__item">
-                            <a :href="social.href" class="hero__socials__item__link">
-                                <font-awesome-icon :icon="social.icon" class="hero__socials__item__icon"/>
-                            </a>
-                        </li>
-                    </ul>
+                <nav class="hero__nav">
+                    <navlinks :links="links" hideOnMobile="true"/>
+                    <span class="hero__nav__trigger" v-on:click="toggleNav">Menu</span>
+                </nav>
+
+                <div class="particle-container">
+                    <img v-for="logo in logos" :src="logo" class="particle"/>
+
+                    <div class="particle-container__cover">
+                        <h3 class="hero__tagline">
+                            Nathan Horrigan is… <br/>
+                            <span class="hero__tagline--large">A Frontend Developer</span> <br/>
+                            in Somerset, England
+                        </h3>
+                        <ul class="hero__socials">
+                            <li v-for="social in socials" class="hero__socials__item">
+                                <a :href="social.href" class="hero__socials__item__link">
+                                    <font-awesome-icon :icon="social.icon" class="hero__socials__item__icon"/>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
+
+                <font-awesome-icon icon="chevron-down" class="hero__arrow"/>
+
+                <div class="hero__cover"></div>
             </div>
-
-            <font-awesome-icon icon="chevron-down" class="hero__arrow"/>
-
-            <div class="hero__cover"></div>
         </div>
+        <div style="height: 10vh;"/>
     </div>
 </template>
 
 <script>
+  import Navlinks from '@components/util/navlinks'
+
   export default {
+    components: {
+      Navlinks
+    },
     props: {
       links: {
         default: () => ([
@@ -68,7 +71,7 @@
           require('@images/landing/react.png'),
           require('@images/landing/wordpress.png'),
           require('@images/landing/laravel.png'),
-          require('@images/landing/wagtail.png'),
+          require('@images/landing/wagtail.svg'),
           require('@images/landing/github.png'),
           require('@images/landing/git.png'),
           require('@images/landing/docker.png'),
@@ -100,10 +103,11 @@
   }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
     @import "~scss/grid";
     @import "~scss/fonts";
     @import "~scss/variables";
+    @import "~scss/animations";
 
     html, body {
         overflow-x: hidden;
@@ -157,11 +161,13 @@
         top: 20px;
         left: 0;
         right: 0;
+        max-width: 800px;
+        height: 60px;
         z-index: 5;
         display: flex;
         justify-content: center;
         align-items: center;
-        margin: 0 !important;
+        margin: auto;
         padding: 0 !important;
 
         &__list {
@@ -173,6 +179,7 @@
             flex-direction: row;
             // justify-content: center;
             align-items: center;
+            padding: 0;
         }
 
         &__link {
@@ -184,14 +191,16 @@
             }
             cursor: pointer;
             * {
-                color: black;
+                color: $primary;
                 font-size: 12pt;
                 font-family: Poppins, sans-serif;
                 font-weight: 600;
                 text-decoration: none;
                 user-select: none;
                 &:hover {
-                    text-decoration: underline;
+                    /*text-decoration: underline;*/
+                    border-bottom: 3px solid $accent;
+                    /*text-decoration-line: 1;*/
                 }
             }
         }
@@ -225,37 +234,23 @@
         height: 100%;
         width: 100%;
         overflow: hidden;
+        perspective: 1000px;
     }
 
-    @for $i from 0 through 100 {
-        .particle-#{$i} {
+    @for $i from 1 through 100 {
+        .particle:nth-child(#{$i}) {
             $size: 40px;
             width: auto;
             height: $size;
             z-index: 1;
+            filter: blur(1px);
 
             position: absolute;
             bottom: -90px; // Below Viewport
             left: random(90) + vw; // Random X
 
             animation: particle 25s infinite;
-            animation-delay: (3 * $i) + s;
-        }
-    }
-
-
-    @keyframes particle {
-        0% {
-            transform: translate3d(0, 0, 0) rotate(0deg);
-        }
-
-        100% {
-            transform: translate3d(
-                (random(200) - 100) + px,
-                calc(-100vh - 120px),
-                0px
-            )
-            rotate(random(3) * 360deg);;
+            animation-delay: (1.25 * $i) + s;
         }
     }
 
@@ -265,7 +260,7 @@
         left: 0;
         height: 100%;
         width: 100%;
-        background-color: rgba(255, 255, 255, 0.4);
+        background-color: rgba($white, 0.4);
         z-index: 2;
         display: flex;
         flex-direction: column;
@@ -276,7 +271,7 @@
     .hero__tagline {
         margin: 0;
         text-align: center;
-        color: black;
+        color: $primary;
         font-family: daily-grind;
         font-size: 22pt;
         line-height: 65px;
@@ -301,7 +296,7 @@
         &__item__link {
             text-decoration: none;
             user-select: none;
-            color: black;
+            color: $primary;
             font-size: 20pt;
 
             &:hover {
@@ -316,11 +311,11 @@
     }
 
     .hero__arrow {
-        position: absolute;
+        position: fixed;
         z-index: 5;
-        bottom: 20px;
-        right: 0;
-        left: 0;
+        bottom: 50px;
+        right: 50px;
+        /*left: 0;*/
         margin: auto;
         color: $accent;
         font-size: 18pt;

@@ -9,7 +9,7 @@
     "compile": "rollup -c",
     "compile:watch": "rollup -w -c",
     "storybook": "start-storybook -p 9001 -c ./frontend/storybook",
-    "deploy-storybook": "build-storybook -c ./frontend/storybook -o docs"
+    "deploy-storybook": "build-storybook -c ./frontend/storybook -o docs -s"
   },
   "dependencies": {
     "@fortawesome/fontawesome": "^1.1.8",
@@ -30,6 +30,8 @@
     "babel-preset-es2017": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
+    "breakpoint-sass": "^2.7.1",
+    "dayjs": "^1.6.9",
     "normalize-scss": "^7.0.1",
     "rollup": "^0.59.4",
     "rollup-plugin-babel": "^3.0.4",

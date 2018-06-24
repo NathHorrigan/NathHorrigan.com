@@ -3,7 +3,7 @@ import Vue from 'vue'
 import WebFont from 'webfontloader'
 
 // Components
-import Landing from '@components/landing.vue'
+import Landing from '@components/hero.vue'
 
 const app = new Vue({
   el: '#app',

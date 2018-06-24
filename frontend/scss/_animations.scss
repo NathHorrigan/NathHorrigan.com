@@ -1,0 +1,14 @@
+@keyframes particle {
+        0% {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+        }
+
+        100% {
+            transform: translate3d(
+                (random(200) - 100) + px,
+                calc(-100vh - 120px),
+                200px
+            )
+            rotate(random(3) * 360deg);
+        }
+    }
