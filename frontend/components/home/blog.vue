@@ -201,12 +201,12 @@
                             margin-right: 10px;
                             padding: 5px;
                             background-color: white;
-                            border-radius: 3px;
                             cursor: pointer;
                             user-select: none;
 
                             font-family: Poppins;
                             font-size: 9pt;
+                            font-weight: 600;
                             color: $accent;
                         }
                     }
